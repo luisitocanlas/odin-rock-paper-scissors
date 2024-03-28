@@ -6,33 +6,30 @@ function getComputerChoice () {
 }
 
 function playRound (playerSelection, computerSelection) {
-  let player = playerSelection.toLowerCase()
-  let computer = computerSelection.toLowerCase()
-
   result = ''
 
-  if (player === 'rock') {
-    if (computer === 'rock') {
+  if (playerSelection === 'rock') {
+    if (computerSelection === 'rock') {
       result = `It's a tie!`
-    } else if (computer === 'paper') {
-      result = `Player loses!`
-    } else if (computer === 'scissors') {
-      result = `Player wins!`
+    } else if (computerSelection === 'paper') {
+      result = `Player loses the round!`
+    } else if (computerSelection === 'scissors') {
+      result = `Player wins the round!`
     }
-  } else if (player === 'paper') {
-    if (computer === 'rock') {
-      result = `Player wins!`
-    } else if (computer === 'paper') {
+  } else if (playerSelection === 'paper') {
+    if (computerSelection === 'rock') {
+      result = `Player wins the round!`
+    } else if (computerSelection === 'paper') {
       result = `It's a tie!`
-    } else if (computer === 'scissors') {
-      result = `Player loses!`
+    } else if (computerSelection === 'scissors') {
+      result = `Player loses the round!`
     }
-  } else if (player === 'scissors') {
-    if (computer === 'rock') {
-      result = `Player loses!`
-    } else if (computer === 'paper') {
-      result = `Player wins!`
-    } else if (computer === 'scissors') {
+  } else if (playerSelection === 'scissors') {
+    if (computerSelection === 'rock') {
+      result = `Player loses the round!`
+    } else if (computerSelection === 'paper') {
+      result = `Player wins the round!`
+    } else if (computerSelection === 'scissors') {
       result = `It's a tie!`
     }
   }
@@ -40,7 +37,46 @@ function playRound (playerSelection, computerSelection) {
   return result
 }
 
-let playerSelection = 'Rock'
-let computerSelection = getComputerChoice()
+function playGame() {
+  let roundsPlayed = 0
+  let playerWins = 0
+  let computerWins = 0
 
-console.log(playRound(playerSelection, computerSelection))
+  let playerChoice
+  let computerChoice
+
+  while (roundsPlayed < 5) {
+    let result
+    computerChoice = getComputerChoice()
+    computerChoice = computerChoice.toLowerCase()
+    playerChoice = prompt(`Rock, Paper, Scissors? `)
+    playerChoice = playerChoice.toLowerCase()
+
+    console.log(`Player has ${playerChoice}`)
+    console.log(`Computer has ${computerChoice}`)
+
+    result = playRound(playerChoice, computerChoice)
+    console.log(result)
+
+    if (result === `Player wins the round!`) {
+      playerWins++
+    } else if (result === `Player loses the round!`) {
+      computerWins++
+    }
+
+    console.log('')
+
+    roundsPlayed++
+  }
+
+  console.log(`Player won ${playerWins} times.`)
+  console.log(`Computer won ${computerWins} times.`)
+
+  if (playerWins > computerWins) {
+    console.log(`Player has won the game!`)
+  } else if (playerWins < computerWins) {
+    console.log(`Computer has won the game!`)
+  } else if (playerWins === computerWins) {
+    console.log(`It's a tie game!`)
+  }
+}
