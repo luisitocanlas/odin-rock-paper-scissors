@@ -26,35 +26,35 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function playGame() {
-	let roundsPlayed = 0;
 	let playerWins = 0;
 	let computerWins = 0;
 
-	let playerChoice;
-	let computerChoice;
+	for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
+		let playerChoice;
+		let computerChoice = getComputerChoice().toLowerCase();
 
-	while (roundsPlayed < 5) {
-		let result;
-		computerChoice = getComputerChoice();
-		computerChoice = computerChoice.toLowerCase();
-		playerChoice = prompt(`Rock, Paper, Scissors? `);
-		playerChoice = playerChoice.toLowerCase();
+		do {
+			playerChoice = prompt('Rock, Paper, Scissors? ');
+			if (playerChoice === null) {
+				console.log('Player canceled the game.');
+				return;
+			}
+			playerChoice = playerChoice.toLowerCase();
+		} while (!['rock', 'paper', 'scissors'].includes(playerChoice));
 
 		console.log(`Player has ${playerChoice}`);
 		console.log(`Computer has ${computerChoice}`);
 
-		result = playRound(playerChoice, computerChoice);
+		let result = playRound(playerChoice, computerChoice);
 		console.log(result);
 
-		if (result === `Player wins the round!`) {
+		if (result.includes('Player wins')) {
 			playerWins++;
-		} else if (result === `Player loses the round!`) {
+		} else if (result.includes('Player loses')) {
 			computerWins++;
 		}
 
 		console.log('');
-
-		roundsPlayed++;
 	}
 
 	console.log(`Player won ${playerWins} times.`);
@@ -64,7 +64,7 @@ function playGame() {
 		console.log(`Player has won the game!`);
 	} else if (playerWins < computerWins) {
 		console.log(`Computer has won the game!`);
-	} else if (playerWins === computerWins) {
+	} else {
 		console.log(`It's a tie game!`);
 	}
 }
