@@ -6,35 +6,25 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-	result = '';
+	const result = {
+		rock: {
+			rock: `It's a tie!`,
+			paper: `Player loses the round!`,
+			scissors: `Player wins the round!`,
+		},
+		paper: {
+			rock: `Player wins the round!`,
+			paper: `It's a tie!`,
+			scissors: `Player loses the round!`,
+		},
+		scissors: {
+			rock: `Player loses the round!`,
+			paper: `Player wins the round!`,
+			scissors: `It's a tie!`,
+		},
+	};
 
-	if (playerSelection === 'rock') {
-		if (computerSelection === 'rock') {
-			result = `It's a tie!`;
-		} else if (computerSelection === 'paper') {
-			result = `Player loses the round!`;
-		} else if (computerSelection === 'scissors') {
-			result = `Player wins the round!`;
-		}
-	} else if (playerSelection === 'paper') {
-		if (computerSelection === 'rock') {
-			result = `Player wins the round!`;
-		} else if (computerSelection === 'paper') {
-			result = `It's a tie!`;
-		} else if (computerSelection === 'scissors') {
-			result = `Player loses the round!`;
-		}
-	} else if (playerSelection === 'scissors') {
-		if (computerSelection === 'rock') {
-			result = `Player loses the round!`;
-		} else if (computerSelection === 'paper') {
-			result = `Player wins the round!`;
-		} else if (computerSelection === 'scissors') {
-			result = `It's a tie!`;
-		}
-	}
-
-	return result;
+	return result[playerSelection][computerSelection];
 }
 
 function playGame() {
