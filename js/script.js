@@ -2,6 +2,7 @@ const btnContainer = document.querySelector('#btn-container');
 const resultContainer = document.querySelector('#result-container');
 let result = document.createElement('p');
 let score = document.createElement('p');
+let gameOver = document.createElement('p');
 let rounds = 1;
 let playerWins = 0;
 let computerWins = 0;
@@ -9,6 +10,7 @@ let computerWins = 0;
 result.textContent = 'Select a button to start.';
 resultContainer.appendChild(result);
 resultContainer.appendChild(score);
+resultContainer.appendChild(gameOver);
 
 function playGame(playerSelection) {
 	const computerSelection = getComputerChoice();
@@ -43,7 +45,8 @@ function playGame(playerSelection) {
 }
 
 function resetGame() {
-	score.textContent = `Thank you for playing! Click on a button to start a new game.`;
+	score.textContent = `Round #: ${rounds}. Player won ${playerWins} times. Computer won ${computerWins} times.`;
+	gameOver.textContent = `Thank you for playing! Click on a button to start a new game.`;
 
 	result.textContent =
 		playerWins > computerWins
@@ -58,25 +61,26 @@ function resetGame() {
 }
 
 btnContainer.addEventListener('click', (e) => {
-	let playerSelection = '';
-	switch (e.target.id) {
-		case 'btn-rock':
-			playerSelection = 'rock';
-			break;
+	// let playerSelection = '';
+	// switch (e.target.id) {
+	// 	case 'btn-rock':
+	// 		playerSelection = 'rock';
+	// 		break;
 
-		case 'btn-paper':
-			playerSelection = 'paper';
-			break;
+	// 	case 'btn-paper':
+	// 		playerSelection = 'paper';
+	// 		break;
 
-		case 'btn-scissors':
-			playerSelection = 'scissors';
-			break;
-	}
+	// 	case 'btn-scissors':
+	// 		playerSelection = 'scissors';
+	// 		break;
+	// }
 
-	console.log(`Round #: ${rounds}`);
-	console.log(`Player win #: ${playerWins}`);
-	console.log(`Computer win #: ${computerWins}`);
 	if (rounds < 5) {
+		const playerSelection = e.target.id.slice(4);
+		console.log(`Round #: ${rounds}`);
+		console.log(`Player win #: ${playerWins}`);
+		console.log(`Computer win #: ${computerWins}`);
 		playGame(playerSelection);
 		rounds++;
 	} else {
