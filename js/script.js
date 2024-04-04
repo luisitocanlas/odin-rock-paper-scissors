@@ -1,5 +1,5 @@
 function getComputerChoice() {
-	const choices = ['Rock', 'Paper', 'Scissors'];
+	const choices = ['rock', 'paper', 'scissors'];
 	return choices[Math.floor(Math.random() * choices.length)];
 }
 
@@ -22,40 +22,12 @@ function playRound(playerSelection, computerSelection) {
 		},
 	};
 
-	return result[playerSelection][computerSelection];
+	roundResult.textContent = result[playerSelection][computerSelection];
 }
 
 function playGame() {
 	let playerWins = 0;
 	let computerWins = 0;
-
-	// for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
-	// 	let playerChoice;
-	// 	let computerChoice = getComputerChoice().toLowerCase();
-
-	// 	do {
-	// 		playerChoice = prompt('Rock, Paper, Scissors? ');
-	// 		if (playerChoice === null) {
-	// 			console.log('Player canceled the game.');
-	// 			return;
-	// 		}
-	// 		playerChoice = playerChoice.toLowerCase();
-	// 	} while (!['rock', 'paper', 'scissors'].includes(playerChoice));
-
-	// 	console.log(`Player has ${playerChoice}`);
-	// 	console.log(`Computer has ${computerChoice}`);
-
-	// 	let result = playRound(playerChoice, computerChoice);
-	// 	console.log(result);
-
-	// 	if (result.includes('Player wins')) {
-	// 		playerWins++;
-	// 	} else if (result.includes('Player loses')) {
-	// 		computerWins++;
-	// 	}
-
-	// 	console.log('');
-	// }
 
 	console.log(`Player won ${playerWins} times.`);
 	console.log(`Computer won ${computerWins} times.`);
@@ -71,29 +43,28 @@ function playGame() {
 
 const btnContainer = document.querySelector('#btn-container');
 const resultContainer = document.querySelector('#result-container');
-let result = document.createElement('p');
+let roundResult = document.createElement('p');
+let score = document.createElement('p');
 
 btnContainer.addEventListener('click', (e) => {
+	let playerSelection = '';
 	switch (e.target.id) {
 		case 'btn-rock':
 			console.log('rock');
-			result.textContent = 'You chose rock!';
+			playerSelection = 'rock';
 			break;
 
 		case 'btn-paper':
 			console.log('paper');
-			result.textContent = 'You chose paper!';
+			playerSelection = 'paper';
 			break;
 
-		case 'btn-scissor':
-			console.log('scissor');
-			result.textContent = 'You chose scissor!';
+		case 'btn-scissors':
+			console.log('scissors');
+			playerSelection = 'scissors';
 			break;
 	}
 
-	showResult(result);
+	playRound(playerSelection, getComputerChoice());
+	resultContainer.append(roundResult);
 });
-
-function showResult(result) {
-	resultContainer.appendChild(result);
-}
