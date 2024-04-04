@@ -2,38 +2,59 @@ const btnContainer = document.querySelector('#btn-container');
 const resultContainer = document.querySelector('#result-container');
 let result = document.createElement('p');
 let score = document.createElement('p');
-let rounds = 0;
+let rounds = 1;
 let playerWins = 0;
 let computerWins = 0;
 
 result.textContent = 'Select a button to start.';
 resultContainer.appendChild(result);
-
-score.textContent = ``;
 resultContainer.appendChild(score);
 
 function playGame(playerSelection) {
-	console.log(`Player won ${playerWins} times.`);
-	console.log(`Computer won ${computerWins} times.`);
-	score.textContent = `Player won ${playerWins} times.\n
-  Computer won ${computerWins} times.`;
+	const computerSelection = getComputerChoice();
+
+	const outcomes = {
+		rock: {
+			rock: `It's a tie.`,
+			paper: `Computer wins.`,
+			scissors: `You win.`,
+		},
+		paper: {
+			rock: `You win.`,
+			paper: `It's a tie.`,
+			scissors: `Computer wins.`,
+		},
+		scissors: {
+			rock: `Computer wins.`,
+			paper: `You win.`,
+			scissors: `It's a tie.`,
+		},
+	};
+	const resultText = outcomes[playerSelection][computerSelection];
+
+	if (resultText.includes('You win')) {
+		playerWins++;
+	} else if (resultText.includes('Computer wins')) {
+		computerWins++;
+	}
+
+	score.textContent = `Round #: ${rounds}. Player won ${playerWins} times. Computer won ${computerWins} times.`;
+	result.textContent = resultText;
 }
 
 function resetGame() {
-	if (playerWins > computerWins) {
-		console.log(`Player has won the game!`);
-		result.textContent = `Player has won the game!`;
-	} else if (playerWins < computerWins) {
-		console.log(`Computer has won the game!`);
-		result.textContent = `Computer has won the game!`;
-	} else {
-		console.log(`It's a tie game!`);
-		result.textContent = `It's a tie game!`;
-	}
+	score.textContent = `Thank you for playing! Click on a button to start a new game.`;
+
+	result.textContent =
+		playerWins > computerWins
+			? `Player has won the game!`
+			: playerWins < computerWins
+			? `Computer has won the game!`
+			: `It's a tie game!`;
 
 	playerWins = 0;
 	computerWins = 0;
-	rounds = 0;
+	rounds = 1;
 }
 
 btnContainer.addEventListener('click', (e) => {
@@ -52,6 +73,9 @@ btnContainer.addEventListener('click', (e) => {
 			break;
 	}
 
+	console.log(`Round #: ${rounds}`);
+	console.log(`Player win #: ${playerWins}`);
+	console.log(`Computer win #: ${computerWins}`);
 	if (rounds < 5) {
 		playGame(playerSelection);
 		rounds++;
