@@ -29,33 +29,33 @@ function playGame() {
 	let playerWins = 0;
 	let computerWins = 0;
 
-	for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
-		let playerChoice;
-		let computerChoice = getComputerChoice().toLowerCase();
+	// for (let roundsPlayed = 0; roundsPlayed < 5; roundsPlayed++) {
+	// 	let playerChoice;
+	// 	let computerChoice = getComputerChoice().toLowerCase();
 
-		do {
-			playerChoice = prompt('Rock, Paper, Scissors? ');
-			if (playerChoice === null) {
-				console.log('Player canceled the game.');
-				return;
-			}
-			playerChoice = playerChoice.toLowerCase();
-		} while (!['rock', 'paper', 'scissors'].includes(playerChoice));
+	// 	do {
+	// 		playerChoice = prompt('Rock, Paper, Scissors? ');
+	// 		if (playerChoice === null) {
+	// 			console.log('Player canceled the game.');
+	// 			return;
+	// 		}
+	// 		playerChoice = playerChoice.toLowerCase();
+	// 	} while (!['rock', 'paper', 'scissors'].includes(playerChoice));
 
-		console.log(`Player has ${playerChoice}`);
-		console.log(`Computer has ${computerChoice}`);
+	// 	console.log(`Player has ${playerChoice}`);
+	// 	console.log(`Computer has ${computerChoice}`);
 
-		let result = playRound(playerChoice, computerChoice);
-		console.log(result);
+	// 	let result = playRound(playerChoice, computerChoice);
+	// 	console.log(result);
 
-		if (result.includes('Player wins')) {
-			playerWins++;
-		} else if (result.includes('Player loses')) {
-			computerWins++;
-		}
+	// 	if (result.includes('Player wins')) {
+	// 		playerWins++;
+	// 	} else if (result.includes('Player loses')) {
+	// 		computerWins++;
+	// 	}
 
-		console.log('');
-	}
+	// 	console.log('');
+	// }
 
 	console.log(`Player won ${playerWins} times.`);
 	console.log(`Computer won ${computerWins} times.`);
@@ -67,4 +67,33 @@ function playGame() {
 	} else {
 		console.log(`It's a tie game!`);
 	}
+}
+
+const btnContainer = document.querySelector('#btn-container');
+const resultContainer = document.querySelector('#result-container');
+let result = document.createElement('p');
+
+btnContainer.addEventListener('click', (e) => {
+	switch (e.target.id) {
+		case 'btn-rock':
+			console.log('rock');
+			result.textContent = 'You chose rock!';
+			break;
+
+		case 'btn-paper':
+			console.log('paper');
+			result.textContent = 'You chose paper!';
+			break;
+
+		case 'btn-scissor':
+			console.log('scissor');
+			result.textContent = 'You chose scissor!';
+			break;
+	}
+
+	showResult(result);
+});
+
+function showResult(result) {
+	resultContainer.appendChild(result);
 }
